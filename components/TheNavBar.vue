@@ -9,12 +9,12 @@
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
+          <!--<li class="nav-item">
             <nuxt-link :to="{ name: 'about-page' }" class="nav-link">About <span class="sr-only">(current)</span></nuxt-link>
           </li>
           <li class="nav-item">
             <nuxt-link :to="{ name: 'contacts-page' }" class="nav-link">Contacts</nuxt-link>
-          </li>
+          </li>-->
         </ul>
         <form class="form-inline my-2 my-lg-0">
           <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
