@@ -15,41 +15,35 @@
 <script>
   import Logo from '~/components/Logo.vue'
   import ToDoItem from "../components/ToDoItem";
+  import uuid from "uuid/v4";
 
   function getTodos(ms) {
     return new Promise(resolve => {
       setTimeout(() => {
         resolve([
           {
-            id: 1,
+            id: uuid(),
             done: true,
             title: 'ToDo title 1'
           },
           {
-            id: 2,
+            id: uuid(),
             done: false,
             title: 'ToDo title 2'
           },
           {
-            id: 3,
+            id: uuid(),
             done: false,
             title: 'ToDo title 3'
           },
           {
-            id: 4,
+            id: uuid(),
             done: true,
             title: 'ToDo title 4'
           }]);
       }, ms);
     });
   }
-  function* IdGen() {
-    let id = 5;
-    while(true) {
-      yield id++;
-    }
-  }
-  const generator = IdGen();
 
   export default {
     components: {
@@ -68,7 +62,7 @@
     methods: {
       onSubmitForm() {
         this.todoList.push({
-          id: generator.next().value,
+          id: uuid(),
           title: this.title,
           done: false
         });

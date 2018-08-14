@@ -3,7 +3,7 @@
     <form class="form-inline d-flex justify-content-between">
       <div class="form-group form-check">
         <input type="checkbox" :checked="todo.done" @change.prevent="onChange" class="form-check-input" id="done">
-        <span v-if="!isEdit" class="form-check-label" :class="{ 'done': todo.done }">{{ todo.title }}</span>
+        <span v-if="!isEdit" class="form-check-label" :class="{ 'done': todo.done, 'not-done': !todo.done }">{{ todo.title }}</span>
         <input v-else class="form-control" v-model="title" type="text">
       </div>
       <div class="form-group">
@@ -21,7 +21,7 @@
     props: {
       todo: {
         type: Object,
-        required: true
+        required: true,
       }
     },
     created() {
