@@ -15,35 +15,7 @@
 <script>
   import Logo from '~/components/Logo.vue'
   import ToDoItem from "../components/ToDoItem";
-  import uuid from "uuid/v4";
-
-  function getTodos(ms) {
-    return new Promise(resolve => {
-      setTimeout(() => {
-        resolve([
-          {
-            id: uuid(),
-            done: true,
-            title: 'ToDo title 1'
-          },
-          {
-            id: uuid(),
-            done: false,
-            title: 'ToDo title 2'
-          },
-          {
-            id: uuid(),
-            done: false,
-            title: 'ToDo title 3'
-          },
-          {
-            id: uuid(),
-            done: true,
-            title: 'ToDo title 4'
-          }]);
-      }, ms);
-    });
-  }
+  import { mapGetters, mapActions } from 'vuex'
 
   export default {
     components: {
@@ -52,42 +24,39 @@
     },
     data() {
       return {
-        title: ''
+        title: '',
       }
     },
-    async asyncData() {
-      const todoList = await getTodos(500);
-      return { todoList };
-    },
+    computed: mapGetters({
+      todoList: 'getTodoList'
+    }),
     methods: {
+      ...mapActions({
+        addTodo: 'addTodo',
+        onEdit: 'editTodo',
+        toggleDone: 'toggleDone',
+        deleteTodo: 'deleteTodo',
+        setPrice: 'setPrice'
+      }),
       onSubmitForm() {
-        this.todoList.push({
-          id: uuid(),
+        this.addTodo({
           title: this.title,
           done: false
         });
         this.title = '';
       },
+      async onToggleDone(id) {
+        let price = parseFloat(prompt('Input price', ''));
+        if(!isNaN(price)) {
+          await this.setPrice({ id, price });
+          this.toggleDone(id);
+        }
+
+      },
       onDelete(id) {
         if(confirm('Are you sure?')) {
-          this.todoList = this.todoList.filter(todo => todo.id !== id);
+          this.deleteTodo(id);
         }
-      },
-      onToggleDone(id) {
-        this.todoList = this.todoList.map(todo => {
-          if(todo.id === id) {
-            todo.done = !todo.done;
-          }
-          return todo;
-        });
-      },
-      onEdit(newTodo) {
-        this.todoList = this.todoList.map(todo => {
-          if(todo.id === newTodo.id) {
-            todo.title = newTodo.title;
-          }
-          return todo;
-        });
       }
     }
   }

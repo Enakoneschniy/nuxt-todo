@@ -36,6 +36,7 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    { src: '~/plugins/cookiesStorage', ssr: true }
   ],
 
   /*
@@ -57,6 +58,7 @@ module.exports = {
   ** Build configuration
   */
   build: {
+    vendor: ['vuex-persistedstate'],
     /*
     ** You can extend webpack config here
     */

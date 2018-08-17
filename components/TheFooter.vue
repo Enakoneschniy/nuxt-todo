@@ -1,6 +1,5 @@
 <template>
   <footer>
-    <h2>I am a footer!</h2>
   </footer>
 </template>
 
