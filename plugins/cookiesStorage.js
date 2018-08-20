@@ -6,7 +6,7 @@ export default ({ store, req }) => {
   createPersistedState({
     key: 'session',
     paths: [
-      'todoList',
+      'Todo.todoList',
     ],
     storage: {
       getItem: (key) => process.client ? Cookies.getJSON(key) : cookie.parse(req.headers.cookie || '')[ key ],

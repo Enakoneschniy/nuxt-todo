@@ -1,3 +1,1 @@
-export default {
-  getTodoList: state => state.todoList
-}
+export default {}

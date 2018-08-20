@@ -4,6 +4,7 @@ import actions from './actions'
 import getters from './getters'
 import mutations from './mutations'
 import plugins from './plugins'
+import modules from './modules'
 
 const store = () => {
   return new Vuex.Store({
@@ -11,6 +12,7 @@ const store = () => {
     mutations,
     actions,
     getters,
+    modules,
     plugins,
   })
 };

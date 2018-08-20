@@ -10,8 +10,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto"></ul>
         <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          <input class="form-control mr-sm-2" v-model="query" type="search" placeholder="Search" aria-label="Search">
         </form>
       </div>
     </div>
@@ -19,8 +18,22 @@
 </template>
 
 <script>
+  import { mapActions } from 'vuex';
   export default {
-    name: "TheNavBar"
+    name: "TheNavBar",
+    data() {
+      return {
+        query: ''
+      }
+    },
+    watch: {
+      query(value) {
+        this.setQuery(value);
+      }
+    },
+    methods: mapActions({
+      setQuery: 'Search/setQuery'
+    })
   }
 </script>
 

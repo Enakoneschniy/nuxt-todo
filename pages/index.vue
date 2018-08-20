@@ -9,6 +9,9 @@
     <div class="list-group">
       <ToDoItem v-for="todo of todoList" :key="todo.id" :todo="todo" @delete="onDelete" @done="onToggleDone" @edit="onEdit"/>
     </div>
+    <div class="mt-5">
+      <h2>Total Price: {{ totalPrice }} UAH</h2>
+    </div>
   </main>
 </template>
 
@@ -27,16 +30,23 @@
         title: '',
       }
     },
-    computed: mapGetters({
-      todoList: 'getTodoList'
-    }),
+    computed: {
+      ...mapGetters({
+        todoList: 'Todo/getTodoList',
+      }),
+      totalPrice() {
+        return this.todoList
+          .filter(todo => todo.price > 0)
+          .reduce(( sum, todo ) => sum += parseFloat(todo.price), 0)
+      }
+    },
     methods: {
       ...mapActions({
-        addTodo: 'addTodo',
-        onEdit: 'editTodo',
-        toggleDone: 'toggleDone',
-        deleteTodo: 'deleteTodo',
-        setPrice: 'setPrice'
+        addTodo: 'Todo/addTodo',
+        onEdit: 'Todo/editTodo',
+        toggleDone: 'Todo/toggleDone',
+        deleteTodo: 'Todo/deleteTodo',
+        setPrice: 'Todo/setPrice'
       }),
       onSubmitForm() {
         this.addTodo({

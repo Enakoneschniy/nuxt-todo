@@ -5,7 +5,7 @@ const plugins =  [
   createPersistedState({
     key: 'session',
     paths: [
-      'todoList',
+      'Todo.todoList',
     ],
     storage: {
       getItem: (key) => Cookies.getJSON(key),
