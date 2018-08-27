@@ -36,7 +36,8 @@ module.exports = {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    { src: '~/plugins/cookiesStorage', ssr: true }
+    { src: '~/plugins/cookiesStorage', ssr: true },
+    { src: '~/plugins/truncate', ssr: true }
   ],
 
   /*

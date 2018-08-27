@@ -8,7 +8,9 @@
       </button>
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto"></ul>
+        <ul class="navbar-nav mr-auto">
+          <DropDown/>
+        </ul>
         <form class="form-inline my-2 my-lg-0">
           <input class="form-control mr-sm-2" v-model="query" type="search" placeholder="Search" aria-label="Search">
         </form>
@@ -19,8 +21,10 @@
 
 <script>
   import { mapActions } from 'vuex';
+  import DropDown from "./DropDown";
   export default {
     name: "TheNavBar",
+    components: { DropDown },
     data() {
       return {
         query: ''

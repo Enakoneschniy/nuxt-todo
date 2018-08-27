@@ -2,9 +2,16 @@
   <span class="list-group-item">
     <form class="form-inline d-flex justify-content-between">
       <div class="form-group form-check">
-        <input type="checkbox" :checked="todo.done"  @change.prevent.stop="onChange" class="form-check-input" id="done">
-        <span v-if="!isEdit" class="form-check-label ml-3" :class="{ 'done': todo.done, 'not-done': !todo.done }">{{ todo.title }}</span>
-        <input v-else class="form-control" v-model="title" type="text">
+        <input type="checkbox" :checked="todo.done" @change.prevent.stop="onChange" class="form-check-input" id="done">
+        <no-ssr>
+          <div>
+            <span v-if="!isEdit && isMobile()" class="form-check-label ml-3"
+                :class="{ 'done': todo.done, 'not-done': !todo.done }">{{ todo.title | truncate(15, '...') }}</span>
+            <span v-if="!isEdit && !isMobile()" class="form-check-label ml-3"
+                :class="{ 'done': todo.done, 'not-done': !todo.done }">{{ todo.title }}</span>
+            <input v-else-if="isEdit" class="form-control" v-model="title" type="text">
+          </div>
+        </no-ssr>
       </div>
       <div class="form-group">
         <span class="mr-5" v-if="!isEdit"><strong>{{ todo.price }} UAH</strong></span>
@@ -18,8 +25,11 @@
 </template>
 
 <script>
+  import mobileMixin from '../mixins/mobile'
+
   export default {
     name: "ToDoItem",
+    mixins: [mobileMixin],
     props: {
       todo: {
         type: Object,
@@ -27,6 +37,7 @@
       }
     },
     created() {
+      this.title = this.todo.title;
       this.updateTodo();
     },
     updated() {
@@ -41,7 +52,6 @@
     },
     methods: {
       updateTodo() {
-        this.title = this.todo.title;
         this.price = this.todo.price;
       },
       onDelete() {
@@ -49,7 +59,7 @@
       },
       onChange() {
         event.target.checked = this.todo.done;
-        if(this.todo.done === false) {
+        if (this.todo.done === false) {
           this.$emit('done', this.todo.id);
         }
       },
